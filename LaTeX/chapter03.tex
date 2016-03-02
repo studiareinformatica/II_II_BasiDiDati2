@@ -1,0 +1,81 @@
+\section{Introduzione}
+Si vuole realizzare un sistema di condivisione/visuaizzazione di video.
+
+\section{Requisiti}
+Questo servizio deve consentire la registrazione degli utenti; per ogni utente devono essere specificati il nome e la data d'iscrizione.\\
+Gli utenti devono avere la possibilità di caricare video. Per ogni video sono da fornire titolo, durata, descrizione, percorso, categoria (unica), tags.\\
+Deve anche permettere ad un utente di segnalare un video come risposta di un video già esistente. Tale informazione va mantenuta in modo consistente, garantendo che nessun utente possa pubblicare un video in risposta ad un video pubblicato da sé steso. \\
+Ad ogni utente dev'essere associata una cronologia di visualizzazione video (numero di visualizzazioni per utente, data, ora). Per ogni video dev'essere possibile associare un'unica valutazione da 0 a 5 (non esprimibile da parte dell'OP). Non è possibile votare un video non visualizzato. Si da' la possibilità di commentare video (+ data, ora / commento); un utente può esprimere più commenti per lo stesso video, previa visualizzazione del video. \\
+Dev'essere possibile creare \textit{playlist} pubbliche o private per i video (+ nome, data creazione, ). \\
+Ricerca video per categoria, tag, valutazione.\\
+La \textbf{redazione} può censurare video. Il motivo di una censura dev'essere mantenuto nel sistema per usi interni.
+\newpage
+
+\section{Struttura}
+\begin{minipage}[t]{0.5\textwidth}
+	\begin{itemize}
+		\item \textbf{Utente}
+		\begin{itemize}
+			\item Nome
+			\item Data di iscrizione
+			\item \underline{Lista video}
+			\item \underline{Lista valutazioni}
+			\item \underline{Lista visualizzazioni}
+		\end{itemize}
+		\item \textbf{Video}
+		\begin{itemize}
+			\item Titolo
+			\item Durata
+			\item Descrizione
+			\item Percorso file
+			\item \underline{Autore}
+			\item \underline{Categoria}
+			\item \underline{Lista Tags}
+			\item Numero visualizzazioni
+			\item In risposta
+			\item Censurato (motivo della censura)
+		\end{itemize}
+		\item \textbf{Categoria}
+		\begin{itemize}
+			\item Nome
+		\end{itemize}
+		\item \textbf{Tag}
+		\begin{itemize}
+			\item Nome
+		\end{itemize}
+		\item \textbf{Visualizzazione}
+		\begin{itemize}
+			\item \underline{Utente}
+			\item \underline{Video}
+			\item Data
+			\item Ora
+		\end{itemize}
+		\item \textbf{Valutazione}
+		\begin{itemize}
+			\item Rank
+			\item \underline{Utente}
+			\item \underline{Video}
+			\item Data
+			\item Ora
+		\end{itemize}
+	\end{itemize}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+	\begin{itemize}
+		\item \textbf{Commenti}
+		\begin{itemize}
+			\item \underline{Utente}
+			\item \underline{Video}
+			\item Data
+			\item Ora
+		\end{itemize}
+		\item \textbf{Playlist}
+		\begin{itemize}
+			\item Nome
+			\item Data creazione
+			\item Pubblica / Privata
+			\item \underline{Utente}
+			\item \underline{Lista Ordinata Video}
+		\end{itemize}
+	\end{itemize}
+\end{minipage}
