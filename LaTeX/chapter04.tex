@@ -122,3 +122,47 @@ Porta tre proprietà:
 \end{enumerate}
 \paragraph{NB.}
 Il linguaggio \textit{ER} permette l'ereditarietà multipla, ma non la generalizzazione multipla.
+
+\section{IS-A tra Relationship}
+\begin{center}
+    \includegraphics[width=.7\textwidth]{res/er-isa-relationship.jpg} \hfill
+\end{center}
+Realizzare IS-A tra relationship è possibile soltanto tra relazioni dello stesso tipo, dove per \textit{tipo} si intende il prodotto realizzato tramite l'incrocio delle entità che queste legano. \\
+In questo sono considerate entità confrontabili e analoghe le IS-A:
+\begin{center}
+    \includegraphics[width=.7\textwidth]{res/er-isa-relationship-isa-entities.jpg} \hfill
+\end{center}
+In sostanza, le condizioni che devono essere rispettate perché una relationship $rel_{1}$ sia una IS-A di una relationship $rel_{1}$ sono le seguenti:
+\begin{enumerate}
+    \item $rel_{1}$ e $rel_{2}$ devono avere pari arità;
+    \item $rel_{1}$ e $rel_{2}$ devono avere gli stessi ruoli;
+    \item per ciascun ruolo comune alle due relationship, le entità corrispondenti a questo ruolo nelle due relationship devono essere necessariamente, a loro volta, istanze della stessa entità o una l'IS-A dell'altra;
+    \item il valore del vincolo di cardinalità proposto da $rel_{2}$ deve essere compatibile con quello espresso da $rel_{1}$, e/o viceversa.
+\end{enumerate}
+
+\section{Vincoli di Cardinalità su Attributi}
+È possibile applicare vincoli di cardinalità anche su attributi di una entità/relationship. Possono quindi rappresentare:
+\begin{itemize}
+    \item opzionalità;
+    \item valori multipli.
+\end{itemize}
+\begin{center}
+    \includegraphics[width=.7\textwidth]{res/er-cardinalita-attrs.jpg} \hfill
+\end{center}
+
+\section{Vincoli di Identificazione su Entità}
+Un identificatore per un entità è un insieme di attributi e/o ruoli di relationship, tale che non esistono due istanze di questa entità che abbiano stesso valore su quell'insieme di attributi.
+\begin{center}
+    \textbf{Identificazione su un solo attributo} \\
+    \includegraphics[width=.7\textwidth]{res/er-identificazione-1.jpg} \\
+    \textbf{Identificazione su un insieme di attributi} \\
+    \includegraphics[width=.7\textwidth]{res/er-identificazione-2.jpg} \\
+    \textbf{Identificazione su un insieme di attributi e ruoli} \\
+    \includegraphics[width=.7\textwidth]{res/er-identificazione-3.jpg} \\
+    \textbf{Identificazione su un insieme di ruoli} \\
+    \includegraphics[width=.7\textwidth]{res/er-identificazione-4.jpg} \\
+\end{center}
+È di fondamentale importanza che ciascun identificatore sia il più minimale possibile.
+
+\section{Vincoli Esterni}
+Vincoli non esprimibili direttamente in diagrammi \textit{ER}, che prendono il nome di \textit{business rules}, che sono sostanzialmente le regole di funzionamento del sistema. Sono di norma specificati nel \textit{dizionario dei dati}, attraverso l'uso della logica matematica.
