@@ -1,0 +1,72 @@
+\section{Sintassi}
+Si definisce \textit{FOL} l'\textit{alfabeto della logica del primo ordine}. E' dato da:
+\begin{itemize}
+	\item insieme \textit{V} di variabili;
+	\item insieme \textit{F} di simboli di funzione;
+	\item linguaggio dei \textit{termini};
+	\item linguaggio delle \textit{formule}.
+\end{itemize}
+\subsection{Simboli di funzione}
+Tra i simboli di funzione, ne troviamo alcuni noti e intuitivi:
+\begin{itemize}
+	\item \textit{zero}/0: numero naturale zero, simbolo di costate;
+	\item \textit{succ}/1: dato \textit{succ(X)} ottengo il successore di X;
+	\item \textit{socrate}/0: l'individuo \textit{Socrate}, simbolo di costante;
+	\item \textit{padre}/1: dato \textit{padre(X)}, ottengo il padre di X.
+\end{itemize}
+\subsection{Simboli di predicato}
+Tra i simboli di predicato, ne troviamo alcuni noti e intuitivi:
+\begin{itemize}
+	\item \textit{doppio}/1: dato \textit{doppio(X)}, ottengo il doppio di X;
+	\item \textit{somma}/2: dato \textit{doppio(X,Y)}, ottengo la somma tra X e Y;
+	\item \textit{uomo}/1: dato \textit{uomo(X)}, ottengo \textit{true} se X è uomo;
+	\item \textit{mortale}/1: dato \textit{mortale(X)}, ottengo \textit{true} se X è mortale.
+\end{itemize}
+\paragraph{Arità}
+L'\textit{arità} definisce il numero di termini che il \textit{simbolo} (o \textit{funzione}) necessità per poter essere applicata. Per esempio, la funzione \textit{doppio}, ha arità pari a 1, perché necessita di una X in input.
+
+\section{Formule}
+Tramite l'alfabeto si può definire il linguaggio della logica del primo ordine. \\
+Questo linguaggio ha una struttura formata di due parti: i \textit{termini} e le \textit{formule}.
+\subsection{Linguaggio dei termini}
+L'insieme dei termini è definito da:
+\begin{itemize}
+	\item ogni variabile in \textit{V};
+	\item ogni simbolo di costante in \textit{F};
+	\item se $\phi$ è una funzione di arità \textit{n} e $t_{1}$ \ldots $t_{n}$ sono parametri, allora la funzione $\phi$ applicata sui termini, è un termine.
+\end{itemize}
+Sostanzialmente, i termini denotano gli \textit{oggetti di interesse}.
+\subsection{Linguaggio delle formule}
+Definito come:
+\begin{itemize}
+	\item se \textit{p} è un simbolo di predicato di arità \textit{n} e $t_{1}$ \ldots $t_{n}$ sono termini, allora il simbolo \textit{p} applicato sui termini, è una formula (detta \textit{atomica});
+	\item se $\phi$ e $\varphi$ sono formule, lo sono anche: $(\phi)$, $\phi \vee \varphi$, $\phi \wedge \varphi$, $\phi \Rightarrow \varphi$, $\phi \Leftrightarrow \varphi$, e così via \ldots;
+	\item se $\phi$ è una formula e \textit{X} è una variabile, lo sono anche: $\forall X \phi$ e $\exists X \phi$;
+\end{itemize}
+
+\section{Semantica}
+La semantica ruota intorno al concetto di \textit{funzione di valutazione}, che calcola il valore di una funzione data una circostanza (in sostanza, restituisce il valore \textit{ritornato} dalla funzione).
+Per \textit{interpretazione} si intende la valutazione delle formule atomice; le formule vengono date a partire da una data interpretazione. \\
+E' nella semantica che si denota la differenza tra i due livelli sintattici tra \textit{termine} e \textit{formula}; per questa ragione, la funzione di valutazione dei due livelli è distinta. \\
+Dunque, secondo la semantica, nel livello dei termini viene interpretato ed associato un valore vero e contestualizzabile nel momento di interpretazione di ciacun termine; nel livello delle formule, utilizzando questi termini, viene interpretato quello delle formule stesse.
+
+\subsection{Valutazione dei termini}
+La valutazione dei termini atomici avviene tramite:
+\begin{itemize}
+	\item \textit{pre-interpretazione}, che ad ogni simbolo matematico associa una funzione vera e \textit{totale};
+	\item assegnamento delle variabili.
+\end{itemize}
+
+\subsection{Valutazione delle formule}
+La valutazione dei termini atomici avviene tramite:
+\begin{itemize}
+	\item \textit{pre-interpretazione}, che ad ogni simbolo di funzione definisce un dominio \textit{D} e una funzione su \textit{D};
+	\item una funzione che associa ad ogni \textit{simbolo di predicato} \textit{p/n} di arità \textit{n} una relazione \textit{l(p)} su $D^n$.
+\end{itemize}
+
+\paragraph{Soddisfacibile}
+Una formula è soddisfacibile se esiste una interpretazione e un assegnamento tale che questa possa risultare \textit{vera}.
+\paragraph{Insoddisfacibile}
+Per ogni interpretazione ed assegnamento, la formula risulta \textit{falsa}.
+\paragraph{Verità Logica (o Tautologia)}
+Per ogni interpretazione ed assegnamento, la formula risulta \textit{vera}.
