@@ -70,3 +70,24 @@ Una formula è soddisfacibile se esiste una interpretazione e un assegnamento ta
 Per ogni interpretazione ed assegnamento, la formula risulta \textit{falsa}.
 \paragraph{Verità Logica (o Tautologia)}
 Per ogni interpretazione ed assegnamento, la formula risulta \textit{vera}.
+
+\section{FOL nell'analisi concettuale}
+Uno schema concettuale composto da:
+\begin{enumerate}
+	\item associazione di una semantica precisa (usando la logica del primo ordine, \textit{FOL}), ai diagrammi \textit{ER};
+	\item utilizzazione della logica del primo ordine per rappresentare quanto non è rappresentabile tramite diagrammi \textit{ER}.
+\end{enumerate}
+Lo schema concettuale dell'applicazione può essere quindi visto interamenet come una enorme formula logica, il che rende possibile la dimostrazione formale di proprietà strutturali.
+\newpage
+
+\subsection{Alfabeto}
+La forumla \textit{FOL} $\phi$ definita da un certo diagramama sarà definita su un alfabeto:
+\begin{itemize}
+	\item insieme di simboli di predicato (univocamente definiti dai nomi dei diversi moduli);
+	\item insieme di simboli di funzione (univocamente definiti dalle operazioni da eseguire).
+\end{itemize}
+Ogni entità \textit{E} presente nel diagramma \textit{ER} definisce il simbolo di predicato unario \textit{E/1}. Ogni attributo \textit{a} dell'entità \textit{E} presente nel diagramma \textit{ER} definisce il simbolo di predicato unario \textit{a/2}.
+Ogni relationship \textit{rel} di arità \textit{n} presente nel diagramma \textit{ER} definisce il simbolo di predicato \textit{n}-ario.
+Ogni attributo della relationship \textit{a} di arità \textit{n} di dominio \textit{dom} del diagramma \textit{ER} definisce il simbolo di predicato $(n+1)$-ario \textit{a/n+1}. \\
+Assumiamo esista il predicato di uguaglianza \textit{=/2}. \\
+Esistono poi gli ttributi composti da \textit{n} campi.
