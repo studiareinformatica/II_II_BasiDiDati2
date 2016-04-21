@@ -77,17 +77,42 @@ Uno schema concettuale composto da:
 	\item associazione di una semantica precisa (usando la logica del primo ordine, \textit{FOL}), ai diagrammi \textit{ER};
 	\item utilizzazione della logica del primo ordine per rappresentare quanto non è rappresentabile tramite diagrammi \textit{ER}.
 \end{enumerate}
-Lo schema concettuale dell'applicazione può essere quindi visto interamenet come una enorme formula logica, il che rende possibile la dimostrazione formale di proprietà strutturali.
-\newpage
+Lo schema concettuale dell'applicazione può essere quindi visto interamenet come una enorme formula logica, il che rende possibile la dimostrazione formale di proprietà strutturali. \\
+Il problema fondamentale da scavalcare è l'ambiguità, l'omissività, la contradditorietà e la scarsa leggibilità del linguaggio naturale. L'obiettivo è invece trovare un'associazione effettivamente utile e funzionale tra una semantica precisa (usando la logica del primo ordine, \textit{FOL}) e i diagrammi \textit{ER}.
 
 \subsection{Alfabeto}
 La forumla \textit{FOL} $\phi$ definita da un certo diagramama sarà definita su un alfabeto:
 \begin{itemize}
 	\item insieme di simboli di predicato (univocamente definiti dai nomi dei diversi moduli);
-	\item insieme di simboli di funzione (univocamente definiti dalle operazioni da eseguire).
+	\item insieme di simboli di funzione (univocamente definiti dalle operazioni applicate sui diversi valori).
 \end{itemize}
 Ogni entità \textit{E} presente nel diagramma \textit{ER} definisce il simbolo di predicato unario \textit{E/1}. Ogni attributo \textit{a} dell'entità \textit{E} presente nel diagramma \textit{ER} definisce il simbolo di predicato unario \textit{a/2}.
 Ogni relationship \textit{rel} di arità \textit{n} presente nel diagramma \textit{ER} definisce il simbolo di predicato \textit{n}-ario.
 Ogni attributo della relationship \textit{a} di arità \textit{n} di dominio \textit{dom} del diagramma \textit{ER} definisce il simbolo di predicato $(n+1)$-ario \textit{a/n+1}. \\
+Ogni relationship \textit{rel} di arità \textit{n} nel diagramma \textit{ER} definisce il simpbolo di predicato \textit{n}-ario \textit{rel/n}. Ogni attributo \textit{a} di dominio \textit{dom} di una relationship \textit{rel} di arità \textit{n} del diagramma \textit{ER} definisce il simbolo di predicato \textit{(n+1)}-ario \textit{a/(n+1)}.
 Assumiamo esista il predicato di uguaglianza \textit{=/2}. \\
-Esistono poi gli ttributi composti da \textit{n} campi.
+Esistono poi gli attributi composti da \textit{n} campi. \\
+Ogni dominio specializzato \textit{dom\_spec} utilizzato nel diagramma \textit{ER}, specializzazione del dominio \textit{dom} definisce:
+\begin{itemize}
+	\item un simbolo di predicato unario per \textit{dom\_spec};
+	\item un simbolo di predicato unario per \textit{dom}.
+\end{itemize}
+\begin{center}
+	$\{dom/1, dom\_spec/1\} \subseteq P$
+\end{center}
+Ogni dominio \textit{dom} utilizzato nel diagramma è composto dai campi $f_1/dom_1$ \ldots $f_n/dom_n$ definsice:
+\begin{itemize}
+	\item un simbolo di predicato unario per \textit{dom/1};
+	\item un simbolo di predicato unario per ogni dominio di ogni campo;
+	\item un simbolo di predicato binario per ogni campo.
+\end{itemize}
+Un'ulteriore tipologia di vincoli da definire definiscono i vincoli di predicato per i domini specializzati (e.g., \textit{dom\_spec}) in termini dei simboli di predicato per i relativi domini base (e.g., \textit{dom}). La forma generale per questi vincoli è:
+\begin{center}
+	$\forall$ \textit{dom\_spec(x)} $\leftrightarrow [dom(x) \wedge $ "x soddisfa il criterio di speicalizzazione" $]$
+\end{center}
+Un'ulteriore tipoogia di vincoli da definire impone che le ennuple dell'estensione di un predicato che definisce una relationship \textit{rel} tra le entità $E_1$ \ldots $E_n$ siano elementi del prodotto catesiano $E_1 \times \ldots \times E_n$. \\
+E' necessario poi definire i vincoli di cardinalità: per ogni ruolo $u_i$ (dove $1 \leq i \leq n$), la forumla conterrà - in \textit{and} - le seguenti sottoformule:
+\begin{itemize}
+	\item vincolo di carindalità minima (solo se $min_{ui} > 0$): $\forall e_i$ $E_i(e_i) \rightarrow $ esistono almeno $min_{ui}$ istanze diverse di \textit{rel} che hanno $e_i$ come \textit{i}-esima componente;
+	\item vincolo di cardinalità massima (solo se $max_{ui} \neq 0$: $\forall e_i$ $E_i(e_1) \rightarrow $ non esistono $max_{ui}+1$ istanze diverse di \textit{rel} che hanno $e_1$ come \textit{i}-esima componente.
+\end{itemize}
