@@ -1,0 +1,92 @@
+La progettazione \textit{DBMS} è articolata in due fasi:
+\begin{enumerate}
+	\item Progettazione della base di dati:
+	\begin{itemize}
+		\item progetto dello schema relazionale;
+		\item progetto dei domini non di tipo base;
+		\item progetto dei vincoli esterni sui dati.
+	\end{itemize}
+	\item Progettazione applicazione: insieme delle specifiche realizzative delle operazioni di \textit{use-case} in termini di algoritmi in pseudo-codice. \\
+\end{enumerate}
+
+Il concetto di relazione matematica viene eteso associando a ciascun dominio un attributo.
+Una relazione può essere rappresentata attraverso tabelle se:
+\begin{itemize}
+	\item le colonne (gli attributi) sono tutte diverse;
+	\item i valori della colonna sono tutti dello stesso dominio.
+\end{itemize}
+
+I riferimenti tra i dati di diverse relazioni sono rappresentati da valori che compaiono nelle ennuple; uno schema di relazione è definito dall'insieme degli attribtui con domini; uno schema di base di dati è l'insieme degli schemi di relazioni con nomi diversi.
+
+Il modello relazionale ha una struttura rigida:
+\begin{itemize}
+	\item i dati sono rappresentati per mezzo di ennuple;
+	\item le ennuple ammesse sono dettate dagli schemi di relazione.
+\end{itemize}
+
+Si può usare la tecnica del valore nullo (\textit{NULL}): un valore speciale che denota assenza di informazione. Quindi, o un valore in una colonna è coerente al suo dominio o è nullo. E' importante limitare l'utilizzo dei valori nulli, attraverso vincoli di integrità. Esistono infatti istanze di una base di dati che, anche se sintatticamente corrette, non rappresentano informazioni possibili per la realtà di interesse. I vincoli di integrità possono essere \textit{intra}-relazionali e \textit{inter}-relazionali, associati ad uno schema di base di dati, limitando i livelli estensionali.
+
+\paragraph{vincoli intra-relazionali}
+Rappresentano condizioni sui valori di ciascuna ennupla, indipendentemente dalle altre ennuple (come il caso di un attributo $voto >= 80$ e $voto <= 30$). \\
+Il vincolo su un solo attributo è chiamato \textit{vincolo di dominio}. Esistono poi i \textit{vincoli di chiave}, per i quali non possono esistere due valori uguali di un dao attributo nella stessa relazione. \\
+Un \textit{id} è una \textit{super-chiave} ed una \textit{chiave}. Le \textit{super-chiavi} formate da insiemi di attributi di cardinalità maggiore di 1 non sono però chiavi. Ogni relazione ha almeno una \textit{super-chiave} e quindi almeno una \textit{chiave}. Questo garantisce l'accessibilità di ciascun dato della base di dati tramite: il nome della relazione, il valore della chiave e il nome dell'attributo. Infine, le chiavi servono anche per correlare i dati in relazioni diverse. \\
+Il problema dei valori nulli è rappresentato dal fatto che non possono essere assunti in attributi che sono \textit{chiavi} e \textit{super-chiavi}, per cui non posso utilizzare riferimenti ad un ennupla di una tabella da un'altra. Per questo tra le tante chiavi se ne sceglie una primaria, che non può mai assumere valore nullo.
+
+\paragraph{vincoli inter-relazionali}
+Fondamentale è il \textit{vincolo di integrità referenziale} o \textit{foreign-key} che specifica come ogni ennupla di una data tabella possa essere referenziata attraverso un suo valore in una ennupla di un'altra tabella. \\
+In presenza di valori \textit{NULL} i vincoli di integrità referenziale sono resi meno restrittivi. \\
+I DBMS non permettono di cacellare un'ennupla referenziata in altra/e; esistono poi altri meccanismi per reagire a cambiamenti della base di dati che violano vincoli di integrità e vengono chiamati \textit{azioni compensative}: per esempio, ogni referenza ad un ennupla inesistente può essere sostituita da \textit{NULL}. L'altra azione compensativa può essere l'eliminazione in cascata, cancellando tutte le ennuple che la referenziano in altre tabelle.
+
+\section{SQL}
+\textit{Structured Query Language}, un linguaggio standard per le basi di dati relazionali. Vederemo \textit{SQL-2} (\textit{SQL-92}).
+I \textit{DBMS} supportano un architettura standard \textit{ANSI}/\textit{SPARC} a tre livelli:
+\begin{enumerate}
+	\item livello \textit{interno}: strutture fisiche di memorizzaizione:
+	\item livello \textit{logico}: modello logico del dati, come il modello relazionale;
+	\item livello \textit{esterno}: una o più descrizioni di interesse della base di dati indipendenti dal modello logico. Può prevedere organizzzazioni dei dati alternative e diverse rispetto a quelle utilizzate nello schema logico. Sostanzialmente è la rappresentazione a tabella tramite query di una tabella o di una join tra diverse tabelle.
+\end{enumerate}
+Noi ci occupiamo prevalentemente del livello logico. \\
+Il linguaggio SQL fornisce divesri costrutti:
+\begin{itemize}
+	\item \textit{DDL} (\textit{Data Definition Language}): per creare dati;
+	\item \textit{DML} (\textit{Data Manipulation Language}): per interrogare base di dati.
+\end{itemize}
+
+\subsection{comandi}
+Il comando \textit{create} è usato per create \textit{database}, \textit{schema} e \textit{table}.
+\begin{lstlisting}
+create table Corso (
+	codice integer not null,
+	nome character varying (100) not null,
+	aula character varying (10) not null,
+	primary key (codice)
+);
+
+create table Incarico (
+	docente integer not null,
+	corso integer not null,
+	primary key (docente, corso),
+	foreing key docente references Docente(matr),
+	foreign key corso references Corso(codice)
+);
+\end{lstlisting}
+
+Accetta di default un numero limitato di domini: \textit{integer}, \textit{smallint}, \textit{numeric}, \textit{decimal}, \textit{float}, \textit{character}, \textit{text}, \textit{datetime}, \textit{date}, \textit{blob}, \textit{clob}, \ldots .
+Supporta la creazione di domini personalizzati:
+\begin{itemize}
+	\item domini di specializzazione di altri domini, che definisce un insieme di valori che un sottonisieme dei valori di un domino esistente.
+	\begin{lstlisting}
+create domain NOME as tipo;
+	\end{lstlisting}
+	\item domini di tipo enumerativo.
+	\begin{lstlisting}
+create type NOME as enum ('valore-1', ...., 'valore-n');
+	\end{lstlisting}
+	\item domini di tipo record.
+	\begin{lstlisting}
+create type NOME as (campo-1 dominio-1, ... , campo-n dominio-n);
+	\end{lstlisting}
+\end{itemize}
+
+Il comando \textit{delete} può eliminare \textit{database}, \textit{table}, \textit{schema}, \textit{domain}. \\
+Il comando \textit{alter} può modificare \textit{table} e \textit{domain}.
